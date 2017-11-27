@@ -32,6 +32,7 @@ public class Consumer extends Observable implements Runnable {
         for (jornada = drop.take();
                 jornada != null;
                 jornada = drop.take()) {
+            //añade el numero de horas al empleado
             int id = jornada.getIdEmpleado();
             int horas = jornada.getNumHoras();
             for(Object emp : Recursos.empleados){

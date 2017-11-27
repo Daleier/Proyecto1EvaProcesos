@@ -12,13 +12,16 @@ import java.util.logging.Logger;
 class MedicionTiempo extends Observable implements Runnable {
     private Thread[] ts;
     private long duracion;
+    private volatile boolean start;
+        
     MedicionTiempo(Thread[] ts) {
         this.ts = ts;
         this.duracion = 0;
     }
     @Override
     public void run() {
-        long start = System.currentTimeMillis();
+        long time_start = System.currentTimeMillis();
+        while(!start);
         for (Thread t : ts) {
             t.start();
         }
@@ -29,10 +32,14 @@ class MedicionTiempo extends Observable implements Runnable {
                 Logger.getLogger(MedicionTiempo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        long end = System.currentTimeMillis();
-        this.duracion=end-start;
+        long time_end = System.currentTimeMillis();
+        this.duracion=time_end-time_start;
         this.setChanged();
         this.notifyObservers(this.duracion);
         this.clearChanged();
+    }
+    
+    public void setStart(boolean start){
+        this.start = start;
     }
 }

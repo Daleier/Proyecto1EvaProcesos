@@ -5,33 +5,35 @@
  */
 package aplicacion;
 
+import java.time.DayOfWeek;
 /**
  *
  * @author dam203
  */
 public class Jornada {
-    private int idEmpleado;
-    private int numHoras;
+    private int idParque;
+    private int numVisitantes;
+    private DayOfWeek dia;
 
     public Jornada(int idEmpleado, int numHoras) {
-        this.idEmpleado = idEmpleado;
-        this.numHoras = numHoras;
+        this.idParque = idEmpleado;
+        this.numVisitantes = numHoras;
     }
     
     public int getIdEmpleado() {
-        return idEmpleado;
+        return idParque;
     }
 
     public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
+        this.idParque = idEmpleado;
     }
 
     public int getNumHoras() {
-        return numHoras;
+        return numVisitantes;
     }
 
     public void setNumHoras(int numHoras) {
-        this.numHoras = numHoras;
+        this.numVisitantes = numHoras;
     }
     
     

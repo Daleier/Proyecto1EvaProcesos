@@ -11,6 +11,7 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 /**
  *
@@ -24,6 +25,11 @@ public class Ventana extends javax.swing.JFrame implements Observer{
     Thread[] threads;
     public Ventana() {
        initComponents();
+       iniciarCalculos();
+       crearDialogo();
+    }
+    
+    private void iniciarCalculos(){
        Drop d = new Drop();
        Producer p1 = new Producer(d, "p1");
        p1.addObserver(this);
@@ -47,7 +53,21 @@ public class Ventana extends javax.swing.JFrame implements Observer{
        tmt.start();
        threads = ts;
     }
-
+    
+    private void crearDialogo() {
+        //TODO cambiar mensaje y añadir distintas medidas
+        int respuesta = JOptionPane.showOptionDialog( null,"Do you want to change the units to ml/h and ml/person?",
+                                                        "29BPDJ - Measurement units",JOptionPane.YES_NO_CANCEL_OPTION,
+                                                        JOptionPane.QUESTION_MESSAGE,null,// null para icono por defecto.
+                                                        new Object[] { "Yes", "No"},"Yes");
+        
+        if (respuesta == JOptionPane.YES_OPTION) {
+            //cambiar unidades
+        } else {
+            //mantener uniaddes
+        }
+        mt.setStart(true);        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
