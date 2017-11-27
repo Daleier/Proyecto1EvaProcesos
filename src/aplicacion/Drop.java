@@ -5,6 +5,8 @@
  */
 package aplicacion;
 
+import java.util.ArrayList;
+
 
 
 /**
@@ -16,18 +18,28 @@ package aplicacion;
 public class Drop {
     // Message sent from producer to consumer.
     private Jornada jornada;
-    private Empleado empleado;
+    private ArrayList<Jornada> buffer;
+
     // True if consumer should wait for producer to send message,
     // false if producer should wait for consumer to retrieve message.
     private boolean empty = true;
+    
+    public Drop(){
+        this.buffer = new ArrayList<Jornada>();
+    }
 
     public synchronized Jornada take() {
         // Wait until message is available.
-        while (empty) {
+         while (empty) {
             try {
                 wait();
-            } catch (InterruptedException e) {   
-                System.out.println("InterruptedException Take consumidor: " + this.jornada != null ? "No nulo" : "Nulo");
+            } catch (InterruptedException e) {
+                String valor = this.buffer != null ? "Not null" : "Null";
+                System.out.println("InterruptedException Take consumer: " + valor);
+                //Neccessary for the case in which to consumers are interrupted in a row
+                if (empty) {
+                    empty = !empty;
+                }
             }
         }
         // Toggle status.
@@ -57,15 +69,10 @@ public class Drop {
         this.jornada = jornada;
         // busca empleado correspondiente
         if(jornada != null){
-            for (int i = 0; i < Recursos.empleados.size(); i++) {
-                Empleado emp = (Empleado) Recursos.empleados.get(i);
-                if(emp.getIdEmpleado() == this.jornada.getIdEmpleado()){
-                    this.empleado = emp;
-                    break;
-                }
+                buffer.add(jornada);
             }
-        }
         // Notify consumer that status has changed.
         notifyAll();
     }
 }
+
