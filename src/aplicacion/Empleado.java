@@ -10,31 +10,34 @@ package aplicacion;
  * @author dam203
  */
 public class Empleado {
-    private int idEmpleado;
-    private int horasTotales;
+    private int id;
+    private String nombre;
+    private int visitantesTotales;
+    private int ingresosTotales; // --> calculados multiplicando precio entrada por numero personas
+
 
     public Empleado(int idEmpleado, int horasTotales) {
-        this.idEmpleado = idEmpleado;
-        this.horasTotales = horasTotales;
+        this.id = idEmpleado;
+        this.visitantesTotales = horasTotales;
     }
 
     public int getIdEmpleado() {
-        return idEmpleado;
+        return id;
     }
 
     public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
+        this.id = idEmpleado;
     }
 
     public int getHorasTotales() {
-        return horasTotales;
+        return visitantesTotales;
     }
 
     public void setHorasTotales(int horasTotales) {
-        this.horasTotales = horasTotales;
+        this.visitantesTotales = horasTotales;
     }
     
     public void addHoras(int horas){
-        this.horasTotales += horas;
+        this.visitantesTotales += horas;
     }
 }
