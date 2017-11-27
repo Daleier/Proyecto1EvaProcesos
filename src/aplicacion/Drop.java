@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class Drop {
     // Message sent from producer to consumer.
-    private Jornada jornada;
     private ArrayList<Jornada> buffer;
 
     // True if consumer should wait for producer to send message,
@@ -48,7 +47,12 @@ public class Drop {
         // Notify producer that status has changed.
         //TODO posible cambio
         notifyAll();
-        return jornada;
+        Jornada message = null;
+        if (this.buffer.size() > 0) {
+            message = this.buffer.get(0);
+            this.buffer.remove(0);
+        }
+        return message;
     }
 
     public synchronized void put(Jornada jornada) {
@@ -65,12 +69,9 @@ public class Drop {
         }
         // Toggle status.
         empty = false;
-        // Store message.
-        this.jornada = jornada;
-        // busca empleado correspondiente
         if(jornada != null){
                 buffer.add(jornada);
-            }
+        }
         // Notify consumer that status has changed.
         notifyAll();
     }
