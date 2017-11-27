@@ -12,7 +12,7 @@ import java.time.DayOfWeek;
 
 public class Recursos {
     public static ArrayList jornadas = new ArrayList<Jornada>();
-    public static ArrayList empleados = new ArrayList<Empleado>(Arrays.asList(new Empleado(1,0), new Empleado(2,0), new Empleado(3,0)));
+    public static ArrayList empleados = new ArrayList<Empleado>(Arrays.asList(new Empleado(1,"0"), new Empleado(2,"0"), new Empleado(3,"0")));
     public static final int MAX_HORAS_JORNADA = 8;
     private static int indice = 0;
     

@@ -33,7 +33,7 @@ public class Producer extends Observable implements Runnable {
         while (elemento != null) {
             drop.put(elemento);
             this.setChanged();
-            this.notifyObservers(name + " -id: "+elemento.getIdEmpleado() + " -h: "+elemento.getNumHoras());
+            this.notifyObservers(name + " -id: "+elemento.getIdParque() + " -h: "+elemento.getNumVisitantes());
             this.clearChanged();
             try {
                 Thread.sleep(random.nextInt(3000));

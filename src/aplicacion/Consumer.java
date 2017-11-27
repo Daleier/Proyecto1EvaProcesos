@@ -33,16 +33,16 @@ public class Consumer extends Observable implements Runnable {
                 jornada != null;
                 jornada = drop.take()) {
             //añade el numero de horas al empleado
-            int id = jornada.getIdEmpleado();
-            int horas = jornada.getNumHoras();
+            int id = jornada.getIdParque();
+            int horas = jornada.getNumVisitantes();
             for(Object emp : Recursos.empleados){
                 Empleado e = (Empleado) emp;
-                if(e.getIdEmpleado() == id) {
-                    e.addHoras(horas);
+                if(e.getId() == id) {
+                    e.addVisitantes(horas);
                 }
             }
             this.setChanged();
-            this.notifyObservers(name + " - ID: "+jornada.getIdEmpleado() + " - Num Horas: " +jornada.getNumHoras());
+            this.notifyObservers(name + " - ID: "+jornada.getIdParque() + " - Num Horas: " +jornada.getNumVisitantes());
             //this.notifyObservers(name + " - id: "+jornada.getIdEmpleado() + " - ht: " +jornada.getHorasTotales());
             this.clearChanged();
             //System.out.format("MESSAGE RECEIVED: %s%n", message);

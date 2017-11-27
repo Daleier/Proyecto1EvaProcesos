@@ -276,14 +276,14 @@ public class Ventana extends javax.swing.JFrame implements Observer{
                 public void run() {
                         for(Object j : Recursos.jornadas){
                         Jornada jor = (Jornada) j;
-                        if(jor.getIdEmpleado() > 0){
-                            jTextAreaJornadas.append("ID: "+jor.getIdEmpleado() + " - Horas: "+jor.getNumHoras()+"\n");
+                        if(jor.getIdParque() > 0){
+                            jTextAreaJornadas.append("ID: "+jor.getIdParque() + " - Horas: "+jor.getNumVisitantes()+"\n");
                         }
                     }
                     for(Object e : Recursos.empleados){
                         Empleado emp = (Empleado) e;
-                        if(emp.getIdEmpleado() > 0){
-                            jTextAreaEmpleados.append("ID: "+emp.getIdEmpleado() + " - Horas Totales: "+emp.getHorasTotales()+"\n");
+                        if(emp.getId() > 0){
+                            jTextAreaEmpleados.append("ID: "+emp.getId() + " - Horas Totales: "+emp.getVisitantesTotales()+"\n");
                         }
                     }
                     jLabelTime.setText(arg.toString());

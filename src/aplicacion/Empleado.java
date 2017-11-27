@@ -5,6 +5,8 @@
  */
 package aplicacion;
 
+import java.time.DayOfWeek;
+
 /**
  *
  * @author dam203
@@ -14,30 +16,50 @@ public class Empleado {
     private String nombre;
     private int visitantesTotales;
     private int ingresosTotales; // --> calculados multiplicando precio entrada por numero personas
+    private int precioEntrada;
+    private DayOfWeek dia;
 
 
-    public Empleado(int idEmpleado, int horasTotales) {
+    public Empleado(int idEmpleado, String nombre) {
         this.id = idEmpleado;
-        this.visitantesTotales = horasTotales;
+        this.nombre = nombre;
+        this.visitantesTotales = 0;
+        this.precioEntrada = 1;
     }
 
-    public int getIdEmpleado() {
+    public int getId() {
         return id;
     }
 
-    public void setIdEmpleado(int idEmpleado) {
-        this.id = idEmpleado;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getHorasTotales() {
+    public int getVisitantesTotales() {
         return visitantesTotales;
     }
 
-    public void setHorasTotales(int horasTotales) {
-        this.visitantesTotales = horasTotales;
+    public void setVisitantesTotales(int visitantes) {
+        this.visitantesTotales = visitantes;
     }
     
-    public void addHoras(int horas){
-        this.visitantesTotales += horas;
+    public void addVisitantes(int visitantes){
+        this.visitantesTotales += visitantes;
+    }
+    
+    public int getPrecioEntrada() {
+        return precioEntrada;
+    }
+    
+    public void setPrecioEntrada(int precio){
+        this.precioEntrada = precio;
+    }
+    
+    public int getIngresosTotales(){
+        return ingresosTotales;
+    }
+    
+    public void calcularIngresosTotales(){
+        ingresosTotales = visitantesTotales * precioEntrada;
     }
 }
