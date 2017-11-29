@@ -26,7 +26,7 @@ public class Recursos {
     public synchronized static Visita getElemento() {
         Random random = new Random();
         Visita resultado = null;
-        //TODO cambiar numero de instancias generadas
+        //TODO cambiar numero de instancias generadas y tiempo de generacion
         if (indice < 10) {
             //crea visita nueva: Id del parque, numero visitantes, dia de la semana
             resultado = new Visita(random.nextInt(parques.size())+1,random.nextInt(MAX_VISITANTES_JORNADA)+1,random.nextInt(7)+1);
