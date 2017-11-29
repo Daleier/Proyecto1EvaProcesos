@@ -5,17 +5,21 @@
  */
 package aplicacion;
 
+import java.time.DayOfWeek;
+
 /**
  *
  * @author dam203
  */
-public class Jornada {
+public class Visita {
     private int idParque;
     private int numVisitantes;
+    private DayOfWeek dia;
 
-    public Jornada(int idParque, int numHoras) {
+    public Visita(int idParque, int visitantes, int dia) { //TODO cambiar precio cada dia, añadir el precio a los ingresos totales cada vez que se suma
         this.idParque = idParque;
-        this.numVisitantes = numHoras;
+        this.numVisitantes = visitantes;
+        this.dia = DayOfWeek.of(dia);
     }
     
     public int getIdParque() {
@@ -34,5 +38,11 @@ public class Jornada {
         this.numVisitantes = numHoras;
     }
     
+    public void setDia(int dia){
+        this.dia = DayOfWeek.of(dia);
+    }
     
+    public String getDia() {
+        return this.dia.name();
+    }   
 }

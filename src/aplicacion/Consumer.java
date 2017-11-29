@@ -28,24 +28,22 @@ public class Consumer extends Observable implements Runnable {
 
     public void run() {
         Random random = new Random();
-        Jornada jornada = null;
+        Visita jornada = null;
         for (jornada = drop.take();
                 jornada != null;
                 jornada = drop.take()) {
             //añade el numero de horas al empleado
             int id = jornada.getIdParque();
             int horas = jornada.getNumVisitantes();
-            for(Object emp : Recursos.empleados){
-                Empleado e = (Empleado) emp;
+            for(Object emp : Recursos.parques){
+                Parque e = (Parque) emp;
                 if(e.getId() == id) {
                     e.addVisitantes(horas);
                 }
             }
             this.setChanged();
-            this.notifyObservers(name + " - ID: "+jornada.getIdParque() + " - Num Horas: " +jornada.getNumVisitantes());
-            //this.notifyObservers(name + " - id: "+jornada.getIdEmpleado() + " - ht: " +jornada.getHorasTotales());
+            this.notifyObservers(name + " - ID: "+jornada.getIdParque() + " - Day: "+jornada.getDia() +" - Guests: " +jornada.getNumVisitantes());
             this.clearChanged();
-            //System.out.format("MESSAGE RECEIVED: %s%n", message);
             try {
                 Thread.sleep(random.nextInt(3000));
             } catch (InterruptedException e) {

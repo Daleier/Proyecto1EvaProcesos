@@ -5,22 +5,21 @@
  */
 package aplicacion;
 
-import java.time.DayOfWeek;
 
 /**
  *
  * @author dam203
  */
-public class Empleado {
+public class Parque {
     private int id;
     private String nombre;
     private int visitantesTotales;
-    private int ingresosTotales; // --> calculados multiplicando precio entrada por numero personas
-    private int precioEntrada;
-    private DayOfWeek dia;
+    private double ingresosTotales; // --> calculados multiplicando precio entrada por numero personas
+    private double precioEntrada;
+    private static String moneda = "€";
+    private final double CAMBIO_EURO_DOLAR = 1.18;
 
-
-    public Empleado(int idEmpleado, String nombre) {
+    public Parque(int idEmpleado, String nombre) {
         this.id = idEmpleado;
         this.nombre = nombre;
         this.visitantesTotales = 0;
@@ -47,19 +46,40 @@ public class Empleado {
         this.visitantesTotales += visitantes;
     }
     
-    public int getPrecioEntrada() {
+    public double getPrecioEntrada() {
         return precioEntrada;
     }
     
-    public void setPrecioEntrada(int precio){
+    public void setPrecioEntrada(double precio){
         this.precioEntrada = precio;
     }
     
-    public int getIngresosTotales(){
+    public double getIngresosTotales(){
         return ingresosTotales;
     }
     
     public void calcularIngresosTotales(){
+        if(moneda.equalsIgnoreCase("$")){
+            precioEntrada = precioEntrada *  CAMBIO_EURO_DOLAR;
+        }
         ingresosTotales = visitantesTotales * precioEntrada;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public static void cambiarMoneda(String unidad){
+        moneda=unidad;
+    }
+    
+    public static String getMoneda(){
+        return moneda;
+    }
+    
+    
 }

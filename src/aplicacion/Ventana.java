@@ -55,16 +55,15 @@ public class Ventana extends javax.swing.JFrame implements Observer{
     }
     
     private void crearDialogo() {
-        //TODO cambiar mensaje y añadir distintas medidas
-        int respuesta = JOptionPane.showOptionDialog( null,"Do you want to change the units to ml/h and ml/person?",
-                                                        "29BPDJ - Measurement units",JOptionPane.YES_NO_CANCEL_OPTION,
+        int respuesta = JOptionPane.showOptionDialog( null,"Do you want to change the units from euros to dollars?",
+                                                        "29BPDJ - Change currency?",JOptionPane.YES_NO_CANCEL_OPTION,
                                                         JOptionPane.QUESTION_MESSAGE,null,// null para icono por defecto.
                                                         new Object[] { "Yes", "No"},"Yes");
         
         if (respuesta == JOptionPane.YES_OPTION) {
-            //cambiar unidades
+            Parque.cambiarMoneda("$");
         } else {
-            //mantener uniaddes
+            Parque.cambiarMoneda("€");
         }
         mt.setStart(true);        
     }
@@ -92,7 +91,7 @@ public class Ventana extends javax.swing.JFrame implements Observer{
         jTextAreaConsumer = new javax.swing.JTextArea();
         jTextAreaConsumer.setEditable(false);
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextAreaEmpleados = new javax.swing.JTextArea();
+        jTextAreaParques = new javax.swing.JTextArea();
         jTextAreaConsumer.setEditable(false);
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -148,9 +147,9 @@ public class Ventana extends javax.swing.JFrame implements Observer{
         jTextAreaConsumer.setRows(5);
         jScrollPane2.setViewportView(jTextAreaConsumer);
 
-        jTextAreaEmpleados.setColumns(20);
-        jTextAreaEmpleados.setRows(5);
-        jScrollPane4.setViewportView(jTextAreaEmpleados);
+        jTextAreaParques.setColumns(20);
+        jTextAreaParques.setRows(5);
+        jScrollPane4.setViewportView(jTextAreaParques);
 
         jLabel5.setText("Empleados:");
 
@@ -274,16 +273,19 @@ public class Ventana extends javax.swing.JFrame implements Observer{
         if(observ.equalsIgnoreCase("MedicionTiempo")){
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                        for(Object j : Recursos.jornadas){
-                        Jornada jor = (Jornada) j;
-                        if(jor.getIdParque() > 0){
-                            jTextAreaJornadas.append("ID: "+jor.getIdParque() + " - Horas: "+jor.getNumVisitantes()+"\n");
+                        for(Object v : Recursos.visitas){
+                        Visita vis = (Visita) v;
+                        if(vis.getIdParque() > 0){
+                            jTextAreaJornadas.append("ID: "+vis.getIdParque() +" - Day: "+vis.getDia()+ " - Guests: "+vis.getNumVisitantes()+"\n");
                         }
                     }
-                    for(Object e : Recursos.empleados){
-                        Empleado emp = (Empleado) e;
-                        if(emp.getId() > 0){
-                            jTextAreaEmpleados.append("ID: "+emp.getId() + " - Horas Totales: "+emp.getVisitantesTotales()+"\n");
+                    for(Object p : Recursos.parques){
+                        Parque parque = (Parque) p;
+                        if(parque.getId() > 0){
+                            parque.calcularIngresosTotales();
+                            jTextAreaParques.append("ID: "+parque.getId() +" - Nombre: "+ parque.getNombre()+ "\nTotal Guests: "+parque.getVisitantesTotales()+" - Income: "
+                                    +parque.getIngresosTotales() + Parque.getMoneda() +"\n");
+                            jTextAreaParques.append("-----------------------------------------------------------------------\n");
                         }
                     }
                     jLabelTime.setText(arg.toString());
@@ -341,8 +343,8 @@ public class Ventana extends javax.swing.JFrame implements Observer{
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextAreaConsumer;
-    private javax.swing.JTextArea jTextAreaEmpleados;
     private javax.swing.JTextArea jTextAreaJornadas;
+    private javax.swing.JTextArea jTextAreaParques;
     private javax.swing.JTextArea jTextAreaProducer;
     // End of variables declaration//GEN-END:variables
 }

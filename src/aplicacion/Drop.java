@@ -17,17 +17,17 @@ import java.util.ArrayList;
 
 public class Drop {
     // Message sent from producer to consumer.
-    private ArrayList<Jornada> buffer;
+    private ArrayList<Visita> buffer;
 
     // True if consumer should wait for producer to send message,
     // false if producer should wait for consumer to retrieve message.
     private boolean empty = true;
     
     public Drop(){
-        this.buffer = new ArrayList<Jornada>();
+        this.buffer = new ArrayList<Visita>();
     }
 
-    public synchronized Jornada take() {
+    public synchronized Visita take() {
         // Wait until message is available.
          while (empty) {
             try {
@@ -43,25 +43,22 @@ public class Drop {
         }
         // Toggle status.
         empty = true;
-//        empleado.addHoras(jornada.getNumHoras());
         // Notify producer that status has changed.
-        //TODO posible cambio
         notifyAll();
-        Jornada message = null;
+        Visita sig_visita = null;
         if (this.buffer.size() > 0) {
-            message = this.buffer.get(0);
+            sig_visita = this.buffer.get(0);
             this.buffer.remove(0);
         }
-        return message;
+        return sig_visita;
     }
 
-    public synchronized void put(Jornada jornada) {
+    public synchronized void put(Visita visita) {
         // Wait until message has been retrieved.
         while (!empty) {
             try { 
                 wait();
             } catch (InterruptedException e) {
-//                System.out.println("InterruptedException Put productor: " + jornada.getIdEmpleado());
                 if (!empty) {
                     empty = !empty;
                 }            
@@ -69,8 +66,8 @@ public class Drop {
         }
         // Toggle status.
         empty = false;
-        if(jornada != null){
-                buffer.add(jornada);
+        if(visita != null){
+                buffer.add(visita);
         }
         // Notify consumer that status has changed.
         notifyAll();

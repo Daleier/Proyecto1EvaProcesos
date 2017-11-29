@@ -29,11 +29,11 @@ public class Producer extends Observable implements Runnable {
 
     public void run() {
         Random random = new Random();
-        Jornada elemento = Recursos.getElemento();
+        Visita elemento = Recursos.getElemento();
         while (elemento != null) {
             drop.put(elemento);
             this.setChanged();
-            this.notifyObservers(name + " -id: "+elemento.getIdParque() + " -h: "+elemento.getNumVisitantes());
+            this.notifyObservers(name + " - ID: "+elemento.getIdParque()+ " - Day: "+elemento.getDia() + " - Guests: "+elemento.getNumVisitantes());
             this.clearChanged();
             try {
                 Thread.sleep(random.nextInt(3000));

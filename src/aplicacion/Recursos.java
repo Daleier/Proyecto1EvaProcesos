@@ -8,31 +8,29 @@ package aplicacion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import java.time.DayOfWeek;
 
 public class Recursos {
-    public static ArrayList jornadas = new ArrayList<Jornada>();
-    public static ArrayList empleados = new ArrayList<Empleado>(Arrays.asList(new Empleado(1,"0"), new Empleado(2,"0"), new Empleado(3,"0")));
-    public static final int MAX_HORAS_JORNADA = 8;
+    public static ArrayList visitas = new ArrayList<Visita>();
+    public static ArrayList parques = new ArrayList<Parque>(Arrays.asList(new Parque(1,"A"), new Parque(2,"B"), new Parque(3,"C")));
+    public static final int MAX_VISITANTES_JORNADA = 1000;
     private static int indice = 0;
     
     public static int getIndice() {
-        return indice;
-        
+        return indice;   
     }
 
     public static void setIndice(int indice) {
         Recursos.indice = indice;
     }
 
-    public synchronized static Jornada getElemento() {
+    public synchronized static Visita getElemento() {
         Random random = new Random();
-        Jornada resultado = null;
+        Visita resultado = null;
         //TODO cambiar numero de instancias generadas
         if (indice < 10) {
-            //crea jornada con id entre 1 y 3 y horas entre 1 y 8
-            resultado = new Jornada(random.nextInt(empleados.size())+1,random.nextInt(MAX_HORAS_JORNADA)+1);
-            jornadas.add(resultado);
+            //crea visita nueva: Id del parque, numero visitantes, dia de la semana
+            resultado = new Visita(random.nextInt(parques.size())+1,random.nextInt(MAX_VISITANTES_JORNADA)+1,random.nextInt(7)+1);
+            visitas.add(resultado);
             indice++;
         }
         return resultado;
