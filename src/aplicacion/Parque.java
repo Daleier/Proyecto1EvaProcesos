@@ -14,16 +14,16 @@ public class Parque {
     private int id;
     private String nombre;
     private int visitantesTotales;
-    private double ingresosTotales; // --> calculados multiplicando precio entrada por numero personas
+    private double ingresosTotales = 0; // --> calculados multiplicando precio entrada por numero personas
     private double precioEntrada;
     private static String moneda = "€";
     private final double CAMBIO_EURO_DOLAR = 1.18;
 
-    public Parque(int idEmpleado, String nombre) {
-        this.id = idEmpleado;
-        this.nombre = nombre;
-        this.visitantesTotales = 0;
-        this.precioEntrada = 1;
+    public Parque(int idParque, int visitantesIniciales) {
+        this.id = idParque;
+        this.nombre = "Park " + this.id;
+        this.visitantesTotales = visitantesIniciales;
+        this.precioEntrada = 2;
     }
 
     public int getId() {

@@ -28,21 +28,15 @@ public class Consumer extends Observable implements Runnable {
 
     public void run() {
         Random random = new Random();
-        Visita jornada = null;
-        for (jornada = drop.take();
-                jornada != null;
-                jornada = drop.take()) {
+        Visita visita = null;
+        for (visita = drop.take();
+                visita != null;
+                visita = drop.take()) {
             //añade el numero de horas al empleado
-            int id = jornada.getIdParque();
-            int horas = jornada.getNumVisitantes();
-            for(Object emp : Recursos.parques){
-                Parque e = (Parque) emp;
-                if(e.getId() == id) {
-                    e.addVisitantes(horas);
-                }
-            }
+            añadirHoras(visita);
+
             this.setChanged();
-            this.notifyObservers(name + " - ID: "+jornada.getIdParque() + " - Day: "+jornada.getDia() +" - Guests: " +jornada.getNumVisitantes());
+            this.notifyObservers(name + " - ID: "+visita.getIdParque() + " - Day: "+visita.getDia() +" - Guests: " +visita.getNumVisitantes());
             this.clearChanged();
             try {
                 Thread.sleep(random.nextInt(3000));
@@ -54,5 +48,16 @@ public class Consumer extends Observable implements Runnable {
         this.notifyObservers(null);
         this.clearChanged();
 
+    }
+    
+    private void añadirHoras(Visita visita){
+        int id = visita.getIdParque();
+        int visitas = visita.getNumVisitantes();
+        Parque parque = Recursos.existeParque(id);
+        if(parque == null){
+            Recursos.parques.add(new Parque(id,visitas));
+        }else{
+            parque.addVisitantes(visitas);
+        }
     }
 }
