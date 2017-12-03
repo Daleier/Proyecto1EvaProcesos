@@ -8,30 +8,30 @@ package aplicacion;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Statistics extends javax.swing.JDialog implements Observer{
+/**
+ *
+ * @author dalei
+ */
+public class Report extends javax.swing.JDialog implements Observer {
 
     /**
-     * Creates new form Statistics
+     * Creates new form Report
      */
     MedicionTiempo temporizador;
     Thread[] threads;
-    public Statistics(java.awt.Frame parent, boolean modal) {
+    public Report(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
-        inicio();
-    }
-
-    public void inicio(){
-        CalculoEstadisticas st1 = new CalculoEstadisticas();
-        st1.addObserver(this);
-        Thread tst1 = new Thread(st1);
+        GenerarInforme report1 = new GenerarInforme();
+        report1.addObserver(this);
+        Thread tr1 = new Thread(report1);
         
-        CalculoEstadisticas st2 = new CalculoEstadisticas();
-        st2.addObserver(this);
-        Thread tst2 = new Thread(st2);
+        GenerarInforme report2 = new GenerarInforme();
+        report2.addObserver(this);
+        Thread tr2 = new Thread(report2);
         
-        Thread[] ts = {tst1, tst2};
+        Thread[] ts = {tr1, tr2};
         this.temporizador = new MedicionTiempo(ts);
         this.temporizador.addObserver(this);
         this.temporizador.setStart(true);
@@ -39,6 +39,7 @@ public class Statistics extends javax.swing.JDialog implements Observer{
         thread_temporizador.start();
         threads = ts;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,53 +49,53 @@ public class Statistics extends javax.swing.JDialog implements Observer{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaReport = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabelTime = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaStats = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("29BPDJ - Statistics");
+        setTitle("29BPDJ - Report");
         setResizable(false);
+
+        jTextAreaReport.setEditable(false);
+        jTextAreaReport.setColumns(20);
+        jTextAreaReport.setRows(5);
+        jTextAreaReport.setFocusable(false);
+        jScrollPane1.setViewportView(jTextAreaReport);
 
         jLabel1.setText("Time:");
 
         jLabelTime.setText("0 ms");
-
-        jTextAreaStats.setEditable(false);
-        jTextAreaStats.setColumns(20);
-        jTextAreaStats.setRows(5);
-        jTextAreaStats.setFocusable(false);
-        jScrollPane1.setViewportView(jTextAreaStats);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(167, 167, 167)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelTime)
-                .addContainerGap(175, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addComponent(jLabelTime)
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabelTime))
-                .addContainerGap())
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(416, 339));
+        pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -115,20 +116,20 @@ public class Statistics extends javax.swing.JDialog implements Observer{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Statistics.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Statistics.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Statistics.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Statistics.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Statistics dialog = new Statistics(new javax.swing.JFrame(), true);
+                Report dialog = new Report(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -140,6 +141,13 @@ public class Statistics extends javax.swing.JDialog implements Observer{
         });
     }
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelTime;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaReport;
+    // End of variables declaration//GEN-END:variables
+
     @Override
     public void update(Observable o, Object arg) {
         String observ = o.getClass().getSimpleName();
@@ -148,24 +156,14 @@ public class Statistics extends javax.swing.JDialog implements Observer{
               java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     jLabelTime.setText(arg.toString() + " ms");
-                    jTextAreaStats.append("Total Visits: "+ Recursos.visitas.size());
-                    jTextAreaStats.append("\nThreads used: " + threads.length);
                 }
             });
-        }else if(observ.equalsIgnoreCase("CalculoEstadisticas")){
-                          java.awt.EventQueue.invokeLater(new Runnable() {
+        }else if(observ.equalsIgnoreCase("GenerarInforme")){
+                java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    jTextAreaStats.append(arg.toString());
-                    jTextAreaStats.append("\n----------------------------------------------------------------\n");
+                    jTextAreaReport.append(arg.toString());
+                    jTextAreaReport.append("\n----------------------------------------------------------------\n");
                 }
             });
-        }
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelTime;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaStats;
-    // End of variables declaration//GEN-END:variables
+        }    }
 }

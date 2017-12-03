@@ -24,6 +24,7 @@ public class Ventana extends javax.swing.JFrame implements Observer{
     MedicionTiempo mt;
     Thread[] threads;
     Statistics dialogStats;
+    Report dialogReport;
     
     public Ventana() {
        initComponents();
@@ -99,6 +100,7 @@ public class Ventana extends javax.swing.JFrame implements Observer{
         jLabel3 = new javax.swing.JLabel();
         jLabelTime = new javax.swing.JLabel();
         jButtonStats = new javax.swing.JButton();
+        jButtonReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("29BPDJ");
@@ -107,6 +109,7 @@ public class Ventana extends javax.swing.JFrame implements Observer{
 
         jTextAreaProducer.setColumns(20);
         jTextAreaProducer.setRows(5);
+        jTextAreaProducer.setFocusable(false);
         jScrollPane1.setViewportView(jTextAreaProducer);
 
         jLabel4.setText("Visits:");
@@ -114,6 +117,7 @@ public class Ventana extends javax.swing.JFrame implements Observer{
         jTextAreaJornadas.setEditable(false);
         jTextAreaJornadas.setColumns(20);
         jTextAreaJornadas.setRows(5);
+        jTextAreaJornadas.setFocusable(false);
         jScrollPane3.setViewportView(jTextAreaJornadas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -149,11 +153,13 @@ public class Ventana extends javax.swing.JFrame implements Observer{
 
         jTextAreaConsumer.setColumns(20);
         jTextAreaConsumer.setRows(5);
+        jTextAreaConsumer.setFocusable(false);
         jScrollPane2.setViewportView(jTextAreaConsumer);
 
         jTextAreaParques.setEditable(false);
         jTextAreaParques.setColumns(20);
         jTextAreaParques.setRows(5);
+        jTextAreaParques.setFocusable(false);
         jScrollPane4.setViewportView(jTextAreaParques);
 
         jLabel5.setText("Guests:");
@@ -199,6 +205,14 @@ public class Ventana extends javax.swing.JFrame implements Observer{
             }
         });
 
+        jButtonReport.setText("Report");
+        jButtonReport.setEnabled(false);
+        jButtonReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -214,7 +228,10 @@ public class Ventana extends javax.swing.JFrame implements Observer{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTime))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelTime)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonReport)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -231,7 +248,8 @@ public class Ventana extends javax.swing.JFrame implements Observer{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabelTime)
-                    .addComponent(jButtonStats))
+                    .addComponent(jButtonStats)
+                    .addComponent(jButtonReport))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -245,6 +263,11 @@ public class Ventana extends javax.swing.JFrame implements Observer{
         dialogStats = new Statistics(this, true);
         dialogStats.setVisible(true);
     }//GEN-LAST:event_jButtonStatsActionPerformed
+
+    private void jButtonReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReportActionPerformed
+        dialogReport = new Report(this, false);
+        dialogReport.setVisible(true);
+    }//GEN-LAST:event_jButtonReportActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,7 +328,7 @@ public class Ventana extends javax.swing.JFrame implements Observer{
                         Parque parque = (Parque) p;
                         if(parque.getId() > 0){
                             parque.calcularIngresosTotales();
-                            jTextAreaParques.append("ID: "+parque.getId() +" - Nombre: "+ parque.getNombre()+ "\nTotal Guests: "+parque.getVisitantesTotales()+" - Income: "
+                            jTextAreaParques.append("ID: "+parque.getId() +" - Name: "+ parque.getNombre()+ "\nTotal Guests: "+parque.getVisitantesTotales()+" - Income: "
                                     +parque.getIngresosTotales() + Parque.getMoneda() +"\n");
                             jTextAreaParques.append("-----------------------------------------------------------------------\n");
                         }
@@ -314,6 +337,7 @@ public class Ventana extends javax.swing.JFrame implements Observer{
                 }
             });
             jButtonStats.setEnabled(true);
+            jButtonReport.setEnabled(true);
         }else if (observ.equalsIgnoreCase("Consumer")){
             if(arg != null){
                 java.awt.EventQueue.invokeLater(new Runnable() {
@@ -353,6 +377,7 @@ public class Ventana extends javax.swing.JFrame implements Observer{
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonReport;
     private javax.swing.JButton jButtonStats;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
