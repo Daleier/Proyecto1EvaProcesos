@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 class MedicionTiempo extends Observable implements Runnable {
     private Thread[] ts;
     private long duracion;
-    private volatile boolean start;
+    private volatile boolean start = false;
         
     MedicionTiempo(Thread[] ts) {
         this.ts = ts;

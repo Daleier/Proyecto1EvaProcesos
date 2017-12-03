@@ -50,7 +50,7 @@ public class Consumer extends Observable implements Runnable {
 
     }
     
-    private void añadirHoras(Visita visita){
+    private synchronized void añadirHoras(Visita visita){
         int id = visita.getIdParque();
         int visitas = visita.getNumVisitantes();
         Parque parque = Recursos.existeParque(id);

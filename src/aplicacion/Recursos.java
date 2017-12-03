@@ -36,7 +36,7 @@ public class Recursos {
         return resultado;
     }
     
-    public static Parque existeParque(int id){
+    public synchronized static Parque existeParque(int id){
         for(Object par : parques){
             Parque p = (Parque) par;
             if(p.getId() == id) {
