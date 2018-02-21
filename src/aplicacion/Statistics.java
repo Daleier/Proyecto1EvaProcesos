@@ -27,11 +27,11 @@ public class Statistics extends javax.swing.JDialog implements Observer{
         st1.addObserver(this);
         Thread tst1 = new Thread(st1);
         
-        CalculoEstadisticas st2 = new CalculoEstadisticas();
-        st2.addObserver(this);
-        Thread tst2 = new Thread(st2);
+//        CalculoEstadisticas st2 = new CalculoEstadisticas();
+//        st2.addObserver(this);
+//        Thread tst2 = new Thread(st2);
         
-        Thread[] ts = {tst1, tst2};
+        Thread[] ts = {tst1};
         this.temporizador = new MedicionTiempo(ts);
         this.temporizador.addObserver(this);
         this.temporizador.setStart(true);

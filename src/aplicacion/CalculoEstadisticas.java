@@ -6,6 +6,8 @@
 package aplicacion;
 
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -20,12 +22,17 @@ public class CalculoEstadisticas extends Observable implements Runnable{
     public void run() {
         try{
             while(indice < Recursos.parques.size()){
-               while(!lock);
-               lock = false;
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(CalculoEstadisticas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+//               while(!lock);
+//               lock = false;
                int numVisitas = 0;
                Parque parque = (Parque) Recursos.parques.get(indice);
                increment();
-               lock = true;
+//               lock = true;
                for(Object vis: Recursos.visitas){
                    Visita visita = (Visita) vis;
                    if(visita.getIdParque() == parque.getId()){
